@@ -712,7 +712,7 @@ impl File {
 
         match dirsize.take_async() {
             Ok(_) => { *meta_updated = true; },
-            Err(HError::AsyncNotReadyError) => { dirsize.run_pooled(&*pool).ok(); },
+            Err(HError::AsyncNotReadyError) => { dirsize.run().ok(); },
             Err(HError::AsyncAlreadyTakenError) => {},
             Err(HError::NoneError) => {},
             err @ Err(_) => { err?; }
@@ -727,7 +727,7 @@ impl File {
 
         match self.meta.take_async() {
             Ok(_) => { *meta_updated = true; },
-            Err(HError::AsyncNotReadyError) => { self.meta.run_pooled(&*pool).ok(); },
+            Err(HError::AsyncNotReadyError) => { self.meta.run().ok(); },
             Err(HError::AsyncAlreadyTakenError) => {},
             Err(HError::NoneError) => {},
             err @ Err(_) => { err?; }
